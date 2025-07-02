@@ -1,12 +1,13 @@
 import asyncio
+from .models import EnrichedData
 
-async def enrich_lead_data(email: str) -> dict:
+async def enrich_lead_data(email: str) -> EnrichedData:
     """Simula obtener datos de empresa basado en el email"""
-    await asyncio.sleep(0.1)  # Simula llamada API
-
+    await asyncio.sleep(0.1)
+    
     if "bigcorp" in email:
-        return {"company_name": "Big Corporation", "company_size": 5000}
-    return {"company_name": "Startup", "company_size": 50}
+        return EnrichedData(company_name="Big Corporation", company_size=5000)
+    return EnrichedData(company_name="Startup", company_size=50)
 
 ROUTING_RULES = {
     "USA": {
