@@ -13,7 +13,8 @@ async def process_new_lead(lead_input: NewLead):
 
     owner_id = services.get_lead_owner(
         country=lead_input.country,
-        company_size=enriched_data.company_size
+        company_size=enriched_data.company_size,
+        intent_signal=lead_input.intent_signal
     )
 
     processed_lead = ProcessedLead(

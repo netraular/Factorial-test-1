@@ -11,18 +11,36 @@ async def enrich_lead_data(email: str) -> EnrichedData:
 
 ROUTING_RULES = {
     "USA": {
-        "small": "owner_usa_small",
-        "large": "owner_usa_big"
+        "large": {
+            "demo_request": "owner_usa_large_demo",
+            "default": "owner_usa_large" 
+        },
+        "small": {
+            "demo_request": "owner_usa_small_demo",
+            "default": "owner_usa_small"
+        }
     },
+    
     "Spain": {
-        "small": "owner_spain_small",
-        "large": "owner_spain_big"
+        "large": {
+            "demo_request": "owner_spain_large_demo",
+            "default": "owner_spain_large"
+        },
+        "small": {
+            "demo_request": "owner_spain_small_demo",
+            "default": "owner_spain_small"
+        }
     },
-    "default": "owner_default"
+    
+    "default": "owner_default" 
 }
 
-def get_lead_owner(country: str, company_size: int) -> str:
+def get_lead_owner(country: str, company_size: int, intent_signal: str | None) -> str:
     """Asigna propietario según país y tamaño de empresa"""
     size_category = "large" if company_size > 1000 else "small"
-    country_rules = ROUTING_RULES.get(country)
-    return country_rules.get(size_category, ROUTING_RULES["default"]) if country_rules else ROUTING_RULES["default"]
+    
+    country_rules = ROUTING_RULES.get(country, ROUTING_RULES)
+    size_rules = country_rules.get(size_category, {})
+    
+    # Asigna el propietario por intención, o usa el 'default' para ese tamaño/país
+    return size_rules.get(intent_signal, size_rules.get("default", ROUTING_RULES["default"]))

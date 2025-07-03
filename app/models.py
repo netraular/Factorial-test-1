@@ -5,6 +5,7 @@ class NewLead(BaseModel):
     contact_id: str
     email: EmailStr
     country: str
+    intent_signal: str | None = None
 
 class EnrichedData(BaseModel):
     """Modelo para los datos que devolvería el servicio de enriquecimiento."""
