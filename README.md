@@ -6,7 +6,7 @@ Este proyecto implementa un flujo automatizado para procesar leads usando FastAP
 - Endpoint POST /process-lead recibe un lead como JSON
 - Valida automáticamente los campos requeridos (contact_id, email, country) usando modelos Pydantic
 - Enriquece los datos del lead simulando una llamada a API externa (como Clearbit)
-- Asigna un propietario (owner_id) basado en país y tamaño de empresa e intención** (ej. si pidió una demo) usando reglas configurables
+- Asigna un propietario (owner_id) basado en país y tamaño de empresa e intención (ej. si pidió una demo) usando reglas configurables
 - Guarda el resultado en /data como archivo JSON
 - Devuelve el lead procesado con todos los datos combinados
 
